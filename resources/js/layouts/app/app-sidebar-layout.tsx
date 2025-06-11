@@ -19,7 +19,7 @@ export default function AppSidebarLayout({ children, breadcrumbs = [] }: PropsWi
         <AppShell variant="sidebar">
             <AppSidebar />
             <AppContent variant="sidebar">
-                <div className="bg-[#F2B423] px-4 py-4 flex justify-between items-center text-white mb-4 relative">
+                <div className="bg-[#F2B423] px-7 py-5 flex justify-between items-center text-white mb-4 relative">
                     <div className="text-xl font-bold" style={{ fontFamily: 'Titillium Web, sans-serif' }}>
                         Keizer Karel College
                     </div>
