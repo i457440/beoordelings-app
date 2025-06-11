@@ -14,10 +14,16 @@ class DashboardController extends Controller
         $aanbestedingen = Aanbesteding::all();
 
         return Inertia::render('dashboard', [
-            'aanbestedingen' => $aanbestedingen,
-            'unreadNotifications' => $user->unreadNotifications,
-            'unreadCount' => auth()->user()->unreadNotifications->count(),
-
-        ]);
+        'aanbestedingen' => $aanbestedingen,
+        'unreadNotifications' => $user->unreadNotifications->map(function ($notification) {
+            return [
+                'id' => $notification->id,
+                'title' => $notification->data['title'] ?? null,
+                'body' => $notification->data['body'] ?? null,
+                'created_at' => $notification->created_at,
+            ];
+        }),
+        'unreadCount' => $user->unreadNotifications->count(),
+    ]);
     }
 }
