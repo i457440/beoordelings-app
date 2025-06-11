@@ -8,6 +8,7 @@ import { usePage, Link, router } from '@inertiajs/react';
 
 export default function AppSidebarLayout({ children, breadcrumbs = [] }: PropsWithChildren<{ breadcrumbs?: BreadcrumbItem[] }>) {
     const { props } = usePage();
+    const unreadNotifications = props.unreadNotifications || [];
     const user = props.auth?.user;
     const [showUserDropdown, setShowUserDropdown] = useState(false);
 
@@ -37,12 +38,14 @@ export default function AppSidebarLayout({ children, breadcrumbs = [] }: PropsWi
                         </div>
 
                         <div className="relative cursor-pointer">
-                            <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
+                            <div onClick={() => router.post(route('notifications.read'))} className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
                                 <BellIcon className="w-5 h-5 text-[#F2B423]" />
                             </div>
-                            <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-semibold">
-                                1
-                            </span>
+                            {unreadNotifications.length > 0 && (
+                                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-semibold">
+                                    {unreadNotifications.length}
+                                </span>
+                            )}
                         </div>
 
                         {showUserDropdown && (

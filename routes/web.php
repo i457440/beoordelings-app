@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\AanbestedingController;
 use App\Http\Controllers\DashboardController;
+use Illuminate\Http\Request;
 
 
 
@@ -21,6 +22,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('hulp', function () {
         return Inertia::render('hulp');
     })->name('hulp');
+
+     Route::post('/notifications/mark-as-read', function (Request $request) {
+        auth()->user()->unreadNotifications->markAsRead();
+        return back();
+    })->name('notifications.read');
 });
 
 require __DIR__.'/settings.php';
