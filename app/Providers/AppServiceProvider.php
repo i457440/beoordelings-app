@@ -22,11 +22,15 @@ class AppServiceProvider extends ServiceProvider
     {
         Inertia::share([
             'auth' => fn () => ['user' => auth()->user()],
-            'unreadNotifications' => fn () => auth()->user()?->unreadNotifications()->latest()->get()->map(fn ($n) => [
-            'id' => $n->id,
-            'message' => $n->data['message'] ?? 'Nieuwe melding',
-            'created_at' => \Carbon\Carbon::parse($n->created_at)->diffForHumans(),
-                ]),
-        ]);
+            'unreadNotifications' => fn () => auth()->check()
+                ? auth()->user()->unreadNotifications()->latest()->get()->map(fn ($n) => [
+                'id' => $n->id,
+                'title' => $n->data['title'] ?? 'Nieuwe melding',
+                'body' => $n->data['body'] ?? '',
+                'created_at' => \Carbon\Carbon::parse($n->created_at)->toDateTimeString(),
+        ])
+        : [],
+]);
+
     }
 }

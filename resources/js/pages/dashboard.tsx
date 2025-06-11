@@ -25,11 +25,11 @@ export default function Dashboard() {
 
   const renderHeader = () => (
     <div className="flex justify-between items-center mb-4">
-      <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} className="text-[#28424F] font-bold text-lg">←</button>
+      <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} className="cursor-pointer text-[#28424F] font-bold text-lg">←</button>
       <h2 className="text-lg font-semibold text-[#28424F]">
         {format(currentMonth, 'MMMM yyyy')}
       </h2>
-      <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} className="text-[#28424F] font-bold text-lg">→</button>
+      <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} className="cursor-pointer text-[#28424F] font-bold text-lg">→</button>
     </div>
   );
 

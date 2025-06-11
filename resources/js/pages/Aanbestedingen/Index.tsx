@@ -1,6 +1,8 @@
 import AppLayout from '@/layouts/app-layout';
 import { Head, usePage } from '@inertiajs/react';
 import { type Aanbesteding } from '@/types';
+import { Link } from '@inertiajs/react';
+
 
 export default function AanbestedingenIndex() {
   const { props } = usePage<{ aanbestedingen: Aanbesteding[] }>();
@@ -27,15 +29,16 @@ export default function AanbestedingenIndex() {
             <div className="px-6 py-4">Einddatum</div>
           </div>
           {aanbestedingen.map((aanbesteding) => (
-            <div
+            <Link
               key={aanbesteding.id}
+              href={route('inschrijvingen.index', aanbesteding.id)}
               className="grid grid-cols-[2fr_1fr_1fr_1fr] bg-white text-[#28424F] border-t border-gray-200 hover:bg-gray-100 transition-colors"
             >
               <div className="px-6 py-4 border-r border-gray-200">{aanbesteding.naam}</div>
               <div className="px-6 py-4 border-r border-gray-200">{aanbesteding.contactpersoon}</div>
               <div className="px-6 py-4 border-r border-gray-200">{aanbesteding.startdatum}</div>
               <div className="px-6 py-4">{aanbesteding.einddatum}</div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

@@ -8,9 +8,10 @@ import { usePage, Link, router } from '@inertiajs/react';
 import { formatDistanceToNow } from 'date-fns';
 import { nl } from 'date-fns/locale';
 
+
 export default function AppSidebarLayout({ children, breadcrumbs = [] }: PropsWithChildren<{ breadcrumbs?: BreadcrumbItem[] }>) {
     const { props } = usePage();
-    const unreadNotifications = props.unreadNotifications || [];
+    const unreadNotifications = Array.isArray(props.unreadNotifications) ? props.unreadNotifications : [];
     const user = props.auth?.user;
     const [showUserDropdown, setShowUserDropdown] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
@@ -65,11 +66,11 @@ export default function AppSidebarLayout({ children, breadcrumbs = [] }: PropsWi
                             <div className="px-4 font-bold mb-2">Meldingen</div>
                             <ul>
                                 {unreadNotifications.map((n) => (
-                                <li key={n.id} className="px-4 py-2 border-t border-gray-100 text-sm">
-                                    <div className="font-semibold">{n.data.title}</div>
-                                    <div className="text-xs text-gray-600">{n.data.body}</div>
-                                    <div className="text-[10px] text-gray-400 mt-1">{new Date(n.created_at).toLocaleString()}</div>
-                                </li>
+                                    <li key={n.id} className="px-4 py-2 border-t border-gray-100 text-sm">
+                                        <div className="font-semibold">{n.title}</div>
+                                        <div className="text-xs text-gray-600">{n.body}</div>
+                                        <div className="text-[10px] text-gray-400 mt-1">{new Date(n.created_at).toLocaleString()}</div>
+                                    </li>
                                 ))}
                             </ul>
                             <button
@@ -77,7 +78,7 @@ export default function AppSidebarLayout({ children, breadcrumbs = [] }: PropsWi
                                 router.post(route('notifications.read'));
                                 setShowNotificationsDropdown(false);
                                 }}
-                                className="w-full text-center text-sm text-blue-600 py-2 border-t border-gray-200 hover:bg-gray-100"
+                                className="w-full text-center text-sm text-[#F2B423] cursor-pointer -600 py-2 border-t border-gray-200 hover:bg-[#F2B423] hover:text-white transition"
                             >
                                 Markeer als gelezen
                             </button>

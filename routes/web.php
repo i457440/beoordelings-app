@@ -5,6 +5,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\AanbestedingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\InschrijvingController;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
@@ -25,6 +26,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('aanbestedingen', [AanbestedingController::class, 'index'])->name('aanbestedingen');
     Route::post('aanbestedingen', [AanbestedingController::class, 'store'])->name('aanbestedingen.store');
+
+    Route::get('/aanbestedingen/{id}/inschrijvingen', [InschrijvingController::class, 'index'])->name('inschrijvingen.index');
+
 
     Route::get('hulp', function () {
         return Inertia::render('hulp');
