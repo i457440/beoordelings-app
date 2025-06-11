@@ -15,13 +15,12 @@ export default function Register() {
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    post(route('register'));
+    post(route('register.submit'));
   };
 
   return (
     <div className="flex min-h-screen">
-      {/* Linkerkant: illustratie of branding */}
-      {/* Linkerhelft (info) */}
+      {/* Linkerhelft */}
       <div className="hidden md:flex w-[55%] flex-col items-stretch bg-[#F2B423] text-white">
             <img
                 src="/images/leftside-boot.png"

@@ -5,15 +5,25 @@ import { type BreadcrumbItem } from '@/types';
 import { type PropsWithChildren, useState } from 'react';
 import { BellIcon, UserIcon, Cog6ToothIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 import { usePage, Link, router } from '@inertiajs/react';
+import { formatDistanceToNow } from 'date-fns';
+import { nl } from 'date-fns/locale';
 
 export default function AppSidebarLayout({ children, breadcrumbs = [] }: PropsWithChildren<{ breadcrumbs?: BreadcrumbItem[] }>) {
     const { props } = usePage();
     const unreadNotifications = props.unreadNotifications || [];
     const user = props.auth?.user;
     const [showUserDropdown, setShowUserDropdown] = useState(false);
+    const [showNotifications, setShowNotifications] = useState(false);
+    const [showNotificationsDropdown, setShowNotificationsDropdown] = useState(false);
+
 
     const handleLogout = () => {
         router.post(route('logout'));
+    };
+
+    const handleBellClick = () => {
+        router.post(route('notifications.read'));
+        setShowNotifications(!showNotifications);
     };
 
     return (
@@ -30,6 +40,7 @@ export default function AppSidebarLayout({ children, breadcrumbs = [] }: PropsWi
                             {user?.name || 'Gebruiker'}
                         </span>
 
+                        {/* Gebruiker dropdown */}
                         <div
                             className="w-8 h-8 rounded-full bg-white flex items-center justify-center cursor-pointer"
                             onClick={() => setShowUserDropdown(!showUserDropdown)}
@@ -37,17 +48,45 @@ export default function AppSidebarLayout({ children, breadcrumbs = [] }: PropsWi
                             <UserIcon className="w-5 h-5 text-[#F2B423]" />
                         </div>
 
-                        <div className="relative cursor-pointer">
-                            <div onClick={() => router.post(route('notifications.read'))} className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-                                <BellIcon className="w-5 h-5 text-[#F2B423]" />
+                        {/* Belletje + dropdown */}
+                        <div className="relative" onClick={() => setShowNotificationsDropdown(!showNotificationsDropdown)}
+                        >
+                        <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center cursor-pointer">
+                            <BellIcon className="w-5 h-5 text-[#F2B423]" />
+                        </div>
+                        {unreadNotifications.length > 0 && (
+                            <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-semibold">
+                            {unreadNotifications.length}
+                            </span>
+                        )}
+
+                        {showNotificationsDropdown && (
+                            <div className="absolute right-0 mt-2 w-80 bg-white text-[#28424F] rounded-xl shadow-lg z-50 pt-3 text-sm border border-gray-200">
+                            <div className="px-4 font-bold mb-2">Meldingen</div>
+                            <ul>
+                                {unreadNotifications.map((n) => (
+                                <li key={n.id} className="px-4 py-2 border-t border-gray-100 text-sm">
+                                    <div className="font-semibold">{n.data.title}</div>
+                                    <div className="text-xs text-gray-600">{n.data.body}</div>
+                                    <div className="text-[10px] text-gray-400 mt-1">{new Date(n.created_at).toLocaleString()}</div>
+                                </li>
+                                ))}
+                            </ul>
+                            <button
+                                onClick={() => {
+                                router.post(route('notifications.read'));
+                                setShowNotificationsDropdown(false);
+                                }}
+                                className="w-full text-center text-sm text-blue-600 py-2 border-t border-gray-200 hover:bg-gray-100"
+                            >
+                                Markeer als gelezen
+                            </button>
                             </div>
-                            {unreadNotifications.length > 0 && (
-                                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-semibold">
-                                    {unreadNotifications.length}
-                                </span>
-                            )}
+                        )}
                         </div>
 
+
+                        {/* Dropdown menu gebruiker */}
                         {showUserDropdown && (
                             <div className="absolute right-0 top-14 w-64 bg-white text-[#28424F] rounded-xl shadow-lg z-50 pt-3 text-sm border border-gray-200">
                                 <div className="px-4 pb-3 border-b border-gray-200">

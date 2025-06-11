@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Aanbesteding;
+use App\Notifications\NieuweAanbestedingBeschikbaar;
+
 
 class AuthenticatedSessionController extends Controller
 {
@@ -32,6 +35,16 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        
+        $user = auth()->user();
+
+        // Stuur melding bij eerste login
+        if ($user->notifications()->count() === 0) {
+        $aanbesteding = Aanbesteding::first(); 
+        if ($aanbesteding) {
+            $user->notify(new NieuweAanbestedingBeschikbaar($aanbesteding));
+        }
+    }
 
         return redirect()->intended(route('dashboard', absolute: false));
     }

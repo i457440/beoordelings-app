@@ -9,6 +9,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import PasswordModal from '@/components/password-modal';
+import { usePage } from '@inertiajs/react';
+
 
 type LoginForm = {
   email: string;
@@ -144,7 +146,11 @@ export default function Login({ status, canResetPassword }: LoginProps) {
         </form>
 
         {status && (
-          <div className="mt-4 text-center text-sm font-medium text-green-600">{status}</div>
+          <div className="w-full max-w-sm mt-4">
+            <div className="p-3 bg-green-100 text-green-800 border border-green-300 rounded text-sm text-center">
+              {status}
+            </div>
+          </div>
         )}
 
         {showModal && <PasswordModal onClose={() => setShowModal(false)} />}

@@ -21,14 +21,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Inertia::share([
-        'auth' => function () {
-            return [
-                'user' => auth()->user(),
-            ];
-        },
-        'unreadNotifications' => function () {
-            return auth()->check() ? auth()->user()->unreadNotifications : [];
-        },
-    ]);
+            'auth' => fn () => ['user' => auth()->user()],
+            'unreadNotifications' => fn () => auth()->user()?->unreadNotifications()->latest()->get()->map(fn ($n) => [
+            'id' => $n->id,
+            'message' => $n->data['message'] ?? 'Nieuwe melding',
+            'created_at' => \Carbon\Carbon::parse($n->created_at)->diffForHumans(),
+                ]),
+        ]);
     }
 }
