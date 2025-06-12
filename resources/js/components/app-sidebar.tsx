@@ -1,4 +1,9 @@
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader } from '@/components/ui/sidebar';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+} from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import {
@@ -35,21 +40,21 @@ export function AppSidebar() {
   const { url } = usePage();
 
   return (
-    <Sidebar className="bg-white text-[#28424F] w-64 min-h-screen p-6" collapsible="none" variant="inset">
-      {/* Logo bovenaan gecentreerd */}
-      <SidebarHeader className="mb-10">
+    <Sidebar className="bg-white text-[#28424F] w-64 min-h-screen pt-4" collapsible="none" variant="inset">
+      {/* Logo */}
+      <SidebarHeader className="mb-5">
         <div className="flex justify-center">
           <Link href="/dashboard" className="inline-block">
             <img
               src="/images/logo-Contractables.png"
               alt="Contractables Logo"
-              className="h-10"
+              className="h-9"
             />
           </Link>
         </div>
       </SidebarHeader>
 
-      {/* Navigatie-items */}
+      {/* Navigatie */}
       <SidebarContent>
         <nav className="space-y-2">
           {mainNavItems.map((item) =>
@@ -63,15 +68,25 @@ export function AppSidebar() {
               </div>
             ) : (
               <Link
-                key={item.href}
-                href={item.href}
-                className={`flex items-center gap-3 px-4 py-2 rounded-md text-base font-medium transition-colors hover:bg-[#F2B423]/10 ${
-                  url.startsWith(item.href) ? 'bg-[#F2B423]/20' : ''
-                }`}
-              >
+              key={item.href}
+              href={item.href}
+              className={`relative flex items-center w-full py-2 transition-colors ${
+                url.startsWith(item.href)
+                  ? 'bg-white font-bold text-[#28424F]'
+                  : 'hover:bg-[#FFF3D4] text-[#28424F]'
+              }`}
+            >
+              {/* Gele balk links bij actief */}
+              {url.startsWith(item.href) && (
+                <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#F2B423]" />
+              )}
+
+              {/* Inhoud met padding */}
+              <div className="flex items-center gap-3 pl-5 pr-4 w-full z-10">
                 <item.icon className="w-5 h-5" />
                 {item.title}
-              </Link>
+              </div>
+            </Link>
             )
           )}
         </nav>
