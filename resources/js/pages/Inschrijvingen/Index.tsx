@@ -14,9 +14,17 @@ export default function InschrijvingenIndex() {
         <h1 className="text-3xl font-bold text-[#28424F]" style={{ fontFamily: 'Titillium Web' }}>
           Inschrijvingen: <span className="font-normal">{aanbesteding.naam}</span>
         </h1>
-        <p className="mt-2 text-[#28424F]" style={{ fontFamily: 'Roboto' }}>
-          Klik op een inschrijving om te starten met beoordelen. Je begint met het bekijken van de inschrijvingsdetails.
-        </p>
+        <div className=" flex items-center justify-between">
+            <p className="text-[#28424F]" style={{ fontFamily: 'Roboto' }}>
+                Klik op een inschrijving om te starten met beoordelen. Je begint met het bekijken van de inschrijvingsdetails.
+            </p>
+            <button
+                type="button"
+                className="bg-[#F2B423] hover:bg-[#dba61d] text-white font-semibold text-sm px-4 py-2 rounded-md shadow transition ml-4"
+            >
+                Vergelijk
+            </button>
+        </div>
 
         {/* Tabel */}
         <div className="mt-8 overflow-hidden rounded-xl border border-gray-200">
@@ -33,21 +41,44 @@ export default function InschrijvingenIndex() {
             <div className="px-4 py-3">Prijsdeficiënt</div>
           </div>
 
-          {inschrijvingen.map((inschrijving, index) => (
+          {inschrijvingen.map((inschrijving) => (
             <div
               key={inschrijving.id}
               className="grid grid-cols-8 bg-white text-[#28424F] border-t border-gray-200 text-sm hover:bg-gray-100 transition cursor-pointer"
             >
-              <div className="px-4 py-3 border-r border-gray-200">{index + 1}</div>
+              {/* Rang - vaag */}
+              <div className="px-4 py-3 border-r border-gray-200">
+                <div className="bg-gray-200 h-4 w-6 rounded blur-sm" />
+              </div>
+
+              {/* Aanbieder */}
               <div className="px-4 py-3 border-r border-gray-200">{inschrijving.aanbieder}</div>
+
+              {/* Voortgang */}
               <div className="px-4 py-3 border-r border-gray-200">
                 <span className="bg-[#2AACCC] text-white px-2 py-1 rounded-full text-xs">0/4</span>
               </div>
+
+              {/* KO */}
               <div className="px-4 py-3 border-r border-gray-200">0</div>
+
+              {/* Onbeantwoord */}
               <div className="px-4 py-3 border-r border-gray-200">0</div>
-              <div className="px-4 py-3 border-r border-gray-200">—</div>
-              <div className="px-4 py-3 border-r border-gray-200">—</div>
-              <div className="px-4 py-3">—</div>
+
+              {/* Prijs - vaag */}
+              <div className="px-4 py-3 border-r border-gray-200">
+                <div className="bg-gray-200 h-4 w-16 rounded blur-sm" />
+              </div>
+
+              {/* Kwaliteitsscore - vaag */}
+              <div className="px-4 py-3 border-r border-gray-200">
+                <div className="bg-gray-200 h-4 w-20 rounded blur-sm" />
+              </div>
+
+              {/* Prijsdeficiënt - vaag */}
+              <div className="px-4 py-3">
+                <div className="bg-gray-200 h-4 w-16 rounded blur-sm" />
+              </div>
             </div>
           ))}
         </div>
