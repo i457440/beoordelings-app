@@ -10,7 +10,7 @@ export default function AanbestedingenIndex() {
 
   return (
     <AppLayout breadcrumbs={[{ title: 'Aanbestedingen', href: '/aanbestedingen' }]}>
-      <Head title="Aanbestedingen" />
+      <Head title="Aanbestedingen - Contractables" />
 
       <div className="p-8 bg-[#F9F9F9] min-h-screen">
         <h1 className="text-3xl font-bold text-[#28424F]" style={{ fontFamily: 'Titillium Web' }}>

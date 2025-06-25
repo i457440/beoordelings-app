@@ -43,6 +43,6 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        return redirect()->route('login')->with('status', 'Account succesvol aangemaakt. Je kunt nu inloggen.');
+        return redirect()->route('login')->with('status', 'Beoordelaar toegevoegd. Deel de inloggegevens.');
     }
 }

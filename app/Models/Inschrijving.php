@@ -13,4 +13,9 @@ class Inschrijving extends Model
     {
         return $this->belongsTo(Aanbesteding::class);
     }
+
+    public function documenten()
+    {
+        return $this->hasMany(Document::class);
+    }
 }

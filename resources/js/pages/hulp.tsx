@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/react';
 export default function hulp() {
   return (
     <AppLayout>
-      <Head title="Hulp en uitleg" />
+      <Head title="Hulp en uitleg - Contractables" />
 
       <div className="p-8 bg-[#F9F9F9] flex-1 overflow-auto">
         <h1 className="text-3xl font-bold text-[#28424F]" style={{ fontFamily: 'Titillium Web' }}>

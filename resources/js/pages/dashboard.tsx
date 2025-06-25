@@ -89,7 +89,7 @@ export default function Dashboard() {
 
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
-      <Head title="Dashboard" />
+      <Head title="Dashboard - Contractables" />
 
       <div className="p-8 bg-[#F9F9F9] flex-1 overflow-auto">
         {/* Welkomtekst */}

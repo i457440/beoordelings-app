@@ -31,7 +31,7 @@ export default function Register() {
 
       {/* Rechterkant: formulier */}
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white p-10">
-        <Head title="Register" />
+        <Head title="Register - Contractables" />
 
         {/* Logo bovenaan */}
         <div className="mb-8 text-center">

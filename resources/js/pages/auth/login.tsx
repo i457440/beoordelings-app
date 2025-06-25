@@ -12,6 +12,7 @@ import PasswordModal from '@/components/password-modal';
 import { usePage } from '@inertiajs/react';
 
 
+
 type LoginForm = {
   email: string;
   password: string;
@@ -41,6 +42,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
 
   return (
     <div className="flex min-h-screen">
+      <Head title="Login - Contractables" />
       {/* Linkerhelft (info) */}
       <div className="hidden md:flex w-[55%] flex-col justify-center items-center bg-[#F2B423] text-white p-10">
         <div className="flex justify-center mb-8">
