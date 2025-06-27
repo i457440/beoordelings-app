@@ -6,6 +6,7 @@ use App\Http\Controllers\AanbestedingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\InschrijvingController;
+
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
@@ -38,6 +39,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         auth()->user()->unreadNotifications->markAsRead();
         return back();
     })->name('notifications.read');
+
+    Route::get('/inschrijvingen/{inschrijving}/bekijken', [InschrijvingController::class, 'showStap1'])
+    ->name('inschrijving.bekijken');
 });
 
 require __DIR__.'/settings.php';

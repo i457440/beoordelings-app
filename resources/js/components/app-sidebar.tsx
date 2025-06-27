@@ -11,6 +11,10 @@ import {
   DocumentTextIcon,
   ClipboardDocumentListIcon,
   InformationCircleIcon,
+  DocumentIcon,
+  ClipboardIcon,
+  PencilSquareIcon,
+  CheckCircleIcon,
 } from '@heroicons/react/24/outline';
 
 const mainNavItems: NavItem[] = [
@@ -38,6 +42,7 @@ const mainNavItems: NavItem[] = [
 
 export function AppSidebar() {
   const { url } = usePage();
+  const isBeoordelingRoute = url.includes('/inschrijvingen/') && url.includes('/bekijken');
 
   return (
     <Sidebar className="bg-white text-[#28424F] w-64 min-h-screen pt-4" collapsible="none" variant="inset">
@@ -56,7 +61,7 @@ export function AppSidebar() {
 
       {/* Navigatie */}
       <SidebarContent>
-        <nav className="space-y-2">
+        <nav className="space-y-2 px-2">
           {mainNavItems.map((item) =>
             item.title === 'Beoordelingen' ? (
               <div
@@ -68,28 +73,54 @@ export function AppSidebar() {
               </div>
             ) : (
               <Link
-              key={item.href}
-              href={item.href}
-              className={`relative flex items-center w-full py-2 transition-colors ${
-                url.startsWith(item.href)
-                  ? 'bg-white font-bold text-[#28424F]'
-                  : 'hover:bg-[#FFF3D4] text-[#28424F]'
-              }`}
-            >
-              {/* Gele balk links bij actief */}
-              {url.startsWith(item.href) && (
-                <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#F2B423]" />
-              )}
+                key={item.href}
+                href={item.href}
+                className={`relative flex items-center w-full py-2 transition-colors ${
+                  url.startsWith(item.href)
+                    ? 'bg-white font-bold text-[#28424F]'
+                    : 'hover:bg-[#FFF3D4] text-[#28424F]'
+                }`}
+              >
+                {/* Gele balk links bij actief */}
+                {url.startsWith(item.href) && (
+                  <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#F2B423]" />
+                )}
 
-              {/* Inhoud met padding */}
-              <div className="flex items-center gap-3 pl-5 pr-4 w-full z-10">
-                <item.icon className="w-5 h-5" />
-                {item.title}
-              </div>
-            </Link>
+                {/* Inhoud met padding */}
+                <div className="flex items-center gap-3 pl-5 pr-4 w-full z-10">
+                  <item.icon className="w-5 h-5" />
+                  {item.title}
+                </div>
+              </Link>
             )
           )}
         </nav>
+
+        {/* Extra beoordelingsmenu alleen bij beoordeling */}
+        {isBeoordelingRoute && (
+          <div className="mt-10 border-t border-gray-200 pt-6 px-2">
+            <h3 className="text-sm font-bold text-[#28424F] mb-2 px-3">Beoordelingstappen</h3>
+            <ul className="text-sm space-y-1">
+              <li className="relative flex items-center gap-2 px-3 py-2 bg-[#FEEFC7] text-[#28424F] font-semibold rounded-md">
+                <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#F2B423] rounded-l-md" />
+                <DocumentIcon className="w-4 h-4 text-[#F2B423]" />
+                Stap 1 - Bekijk inschrijving
+              </li>
+              <li className="flex items-center gap-2 px-3 py-2 text-gray-400">
+                <ClipboardIcon className="w-4 h-4" />
+                Stap 2 - Beoordelingscriteria
+              </li>
+              <li className="flex items-center gap-2 px-3 py-2 text-gray-400">
+                <PencilSquareIcon className="w-4 h-4" />
+                Stap 3 - Inschrijving beoordelen
+              </li>
+              <li className="flex items-center gap-2 px-3 py-2 text-gray-400">
+                <CheckCircleIcon className="w-4 h-4" />
+                Stap 4 - Beoordeling afronden
+              </li>
+            </ul>
+          </div>
+        )}
       </SidebarContent>
     </Sidebar>
   );

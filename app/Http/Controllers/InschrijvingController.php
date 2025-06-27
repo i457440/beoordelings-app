@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aanbesteding;
+use App\Models\Inschrijving;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class InschrijvingController extends Controller
 {
+    // Overzicht van inschrijvingen per aanbesteding
     public function index($id)
     {
-        // Haal de aanbesteding op met inschrijvingen en documenten
         $aanbesteding = Aanbesteding::with('inschrijvings.documenten')->findOrFail($id);
 
         $documenten = collect();
@@ -33,6 +34,17 @@ class InschrijvingController extends Controller
             'aanbesteding' => $aanbesteding,
             'inschrijvingen' => $aanbesteding->inschrijvings,
             'documenten' => $documenten->values(),
+        ]);
+    }
+
+    // Stap 1 bekijken: inschrijving inzien
+    public function showStap1(Inschrijving $inschrijving)
+    {
+        // Laad bijbehorende documenten
+        $inschrijving->load('documenten');
+
+        return Inertia::render('InschrijvingBekijken', [
+            'inschrijving' => $inschrijving,
         ]);
     }
 }

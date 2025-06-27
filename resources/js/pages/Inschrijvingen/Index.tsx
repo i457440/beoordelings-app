@@ -2,6 +2,8 @@ import AppLayout from '@/layouts/app-layout';
 import { Head, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import VergelijkModal from '@/components/VergelijkModal';
+import { Link } from '@inertiajs/react';
+
 
 export default function InschrijvingenIndex() {
   const { props } = usePage();
@@ -48,8 +50,9 @@ export default function InschrijvingenIndex() {
           </div>
 
           {inschrijvingen.map((inschrijving) => (
-            <div
+            <Link
               key={inschrijving.id}
+              href={route('inschrijving.bekijken', inschrijving.id)}
               className="grid grid-cols-8 bg-white text-[#28424F] border-t border-gray-200 text-sm hover:bg-gray-100 transition cursor-pointer"
             >
               <div className="px-4 py-3 border-r border-gray-200">
@@ -70,7 +73,7 @@ export default function InschrijvingenIndex() {
               <div className="px-4 py-3">
                 <div className="bg-gray-200 h-4 w-16 rounded blur-sm" />
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
