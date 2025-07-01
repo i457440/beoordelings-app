@@ -33,13 +33,15 @@ export default function Hulp() {
     <AppLayout breadcrumbs={[{ title: 'Hulp en uitleg', href: '#' }]}> 
       <Head title="Hulp en uitleg" />
 
-      <div className="p-10 bg-[#F9F9F9] min-h-screen">
-        <h1 className="text-2xl font-bold text-[#28424F] mb-1">Hulp en uitleg</h1>
-        <p className="text-sm text-[#28424F] mb-6">
+        <div className="p-8 bg-[#F9F9F9] min-h-screen">
+        <h1 className="text-3xl font-bold text-[#28424F]" style={{ fontFamily: 'Titillium Web' }}>
+            Hulp en uitleg
+        </h1>
+        <p className="mt-2 text-[#28424F]" style={{ fontFamily: 'Roboto' }}>
           Gebruik je het platform maar af en toe? Geen zorgen, hier vind je alles terug.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-6 items-start">
           {/* Linker kolom */}
           <div className="flex flex-col gap-6">
             {/* Tips & Best practices */}
@@ -66,7 +68,7 @@ export default function Hulp() {
                 </li>
                 <li className="flex items-center">
                   <PhoneIcon className="w-4 h-4 text-[#F2B423] mr-2" />
-                  030 - 123 4567
+                  (085) 021 20 81
                 </li>
                 <li className="flex items-center">
                   <MapPinIcon className="w-4 h-4 text-[#F2B423] mr-2" />

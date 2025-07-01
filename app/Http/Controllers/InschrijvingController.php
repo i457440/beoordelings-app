@@ -43,8 +43,22 @@ class InschrijvingController extends Controller
         // Laad bijbehorende documenten
         $inschrijving->load('documenten');
 
-        return Inertia::render('InschrijvingBekijken', [
+        return Inertia::render('inschrijvingbekijken', [
             'inschrijving' => $inschrijving,
         ]);
     }
+
+    public function showStap2(Inschrijving $inschrijving)
+    {
+        return Inertia::render('beoordelingscriteria', [
+            'inschrijving' => $inschrijving,
+        ]);
+    }
+
+    public function showStap3(Inschrijving $inschrijving)
+{
+    return Inertia::render('inschrijvingbeoordelen', [
+        'inschrijving' => $inschrijving,
+    ]);
+}
 }

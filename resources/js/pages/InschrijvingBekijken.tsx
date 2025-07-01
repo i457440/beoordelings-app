@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import AppLayout from '@/layouts/app-layout';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { FileText, CheckCircle } from 'lucide-react';
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
 export default function InschrijvingBekijken({ inschrijving }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -13,6 +13,15 @@ export default function InschrijvingBekijken({ inschrijving }) {
     'Duurzaamheid en levensduur',
     'Prijs',
   ];
+
+  const stappen = [
+    { nummer: 1, label: 'Bekijk inschrijving' },
+    { nummer: 2, label: 'Beoordelingscriteria' },
+    { nummer: 3, label: 'Inschrijving beoordelen' },
+    { nummer: 4, label: 'Beoordeling afronden' },
+  ];
+
+  const huidigeStap = 1;
 
   return (
     <AppLayout breadcrumbs={[{ title: 'Inschrijving bekijken', href: '#' }]}> 
@@ -25,18 +34,45 @@ export default function InschrijvingBekijken({ inschrijving }) {
         {/* Hoofdblok met stappen én inhoud */}
         <div className="bg-white border border-gray-200 rounded-xl p-6">
           {/* Visuele voortgang */}
-          <div className="grid grid-cols-4 text-sm border-b border-gray-200 mb-6">
-            {['Bekijk inschrijving', 'Beoordelingscriteria', 'Inschrijving beoordelen', 'Beoordeling afronden'].map((stap, index) => (
-              <div
-                key={index}
-                className={`flex items-center gap-2 px-6 py-4 ${index === 0 ? 'bg-white' : 'bg-[#fefcf9]'}`}
-              >
-                <div className={`w-6 h-6 flex items-center justify-center rounded-full text-sm font-bold border ${index === 0 ? 'border-[#F2B423] text-[#F2B423]' : 'border-gray-300 text-gray-400'}`}>
-                  {index + 1}
+          <div className="grid grid-cols-4 text-sm border-b border-gray-200 -m-6 mb-6 rounded-t-xl overflow-hidden">
+            {stappen.map((stap) => {
+              const isActief = stap.nummer === huidigeStap;
+              const isVoltooid = stap.nummer < huidigeStap;
+
+              return (
+                <div
+                  key={stap.nummer}
+                  className={`flex items-center gap-2 px-6 py-4 ${isActief ? 'bg-white' : 'bg-[#fefcf9]'}`}
+                >
+                  <div
+                    className={`w-6 h-6 flex items-center justify-center rounded-full text-sm font-bold border ${
+                      isVoltooid
+                        ? 'text-green-500 border-green-500'
+                        : isActief
+                        ? 'text-[#F2B423] border-[#F2B423]'
+                        : 'text-gray-400 border-gray-300'
+                    }`}
+                  >
+                    {isVoltooid ? (
+                      <CheckIcon className="w-4 h-4" />
+                    ) : (
+                      stap.nummer
+                    )}
+                  </div>
+                  <span
+                    className={
+                      isVoltooid
+                        ? 'text-green-500'
+                        : isActief
+                        ? 'text-[#F2B423] font-semibold'
+                        : 'text-gray-400'
+                    }
+                  >
+                    {stap.label}
+                  </span>
                 </div>
-                <span className={`${index === 0 ? 'text-[#F2B423] font-semibold' : 'text-gray-400'}`}>{stap}</span>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Inhoud */}
@@ -91,9 +127,12 @@ export default function InschrijvingBekijken({ inschrijving }) {
           <button className="px-5 py-2 border border-[#F2B423] text-[#F2B423] rounded hover:bg-[#fff8e6] text-sm">
             Opslaan
           </button>
-          <button className="px-5 py-2 bg-[#F2B423] text-white rounded hover:bg-[#d9a721] text-sm">
+          <Link
+            href={route('inschrijving.beoordelingscriteria', { inschrijving: inschrijving.id })}
+            className="px-5 py-2 bg-[#F2B423] text-white rounded hover:bg-[#d9a721] text-sm"
+          >
             Volgende
-          </button>
+          </Link>
         </div>
       </div>
     </AppLayout>

@@ -1,3 +1,4 @@
+// AppSidebar.tsx
 import {
   Sidebar,
   SidebarContent,
@@ -42,7 +43,20 @@ const mainNavItems: NavItem[] = [
 
 export function AppSidebar() {
   const { url } = usePage();
-  const isBeoordelingRoute = url.includes('/inschrijvingen/') && url.includes('/bekijken');
+
+  const isBeoordelingRoute =
+    url.includes('/inschrijvingen/') ||
+    url.includes('/beoordelingscriteria') ||
+    url.includes('/beoordelen') ||
+    url.includes('/afronden');
+
+  const activeStapIndex = (() => {
+  if (url.includes('/beoordelingscriteria')) return 2;
+  if (url.includes('/beoordelen')) return 3;
+  if (url.includes('/beoordelingafronden')) return 4;
+  if (url.includes('/inschrijvingen/') && url.includes('/bekijken')) return 1;
+  return null;
+})();
 
   return (
     <Sidebar className="bg-white text-[#28424F] w-64 min-h-screen pt-4" collapsible="none" variant="inset">
@@ -81,12 +95,9 @@ export function AppSidebar() {
                     : 'hover:bg-[#FFF3D4] text-[#28424F]'
                 }`}
               >
-                {/* Gele balk links bij actief */}
                 {url.startsWith(item.href) && (
                   <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#F2B423]" />
                 )}
-
-                {/* Inhoud met padding */}
                 <div className="flex items-center gap-3 pl-5 pr-4 w-full z-10">
                   <item.icon className="w-5 h-5" />
                   {item.title}
@@ -96,28 +107,57 @@ export function AppSidebar() {
           )}
         </nav>
 
-        {/* Extra beoordelingsmenu alleen bij beoordeling */}
+        {/* Extra beoordelingsmenu zichtbaar op alle beoordelingsroutes */}
         {isBeoordelingRoute && (
           <div className="mt-10 border-t border-gray-200 pt-6 px-2">
             <h3 className="text-sm font-bold text-[#28424F] mb-2 px-3">Beoordelingstappen</h3>
             <ul className="text-sm space-y-1">
-              <li className="relative flex items-center gap-2 px-3 py-2 bg-[#FEEFC7] text-[#28424F] font-semibold rounded-md">
-                <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#F2B423] rounded-l-md" />
-                <DocumentIcon className="w-4 h-4 text-[#F2B423]" />
-                Stap 1 - Bekijk inschrijving
-              </li>
-              <li className="flex items-center gap-2 px-3 py-2 text-gray-400">
-                <ClipboardIcon className="w-4 h-4" />
-                Stap 2 - Beoordelingscriteria
-              </li>
-              <li className="flex items-center gap-2 px-3 py-2 text-gray-400">
-                <PencilSquareIcon className="w-4 h-4" />
-                Stap 3 - Inschrijving beoordelen
-              </li>
-              <li className="flex items-center gap-2 px-3 py-2 text-gray-400">
-                <CheckCircleIcon className="w-4 h-4" />
-                Stap 4 - Beoordeling afronden
-              </li>
+              {[1, 2, 3, 4].map((stap) => {
+                const items = [
+                  {
+                    label: 'Stap 1 - Bekijk inschrijving',
+                    icon: DocumentIcon,
+                  },
+                  {
+                    label: 'Stap 2 - Beoordelingscriteria',
+                    icon: ClipboardIcon,
+                  },
+                  {
+                    label: 'Stap 3 - Inschrijving beoordelen',
+                    icon: PencilSquareIcon,
+                  },
+                  {
+                    label: 'Stap 4 - Beoordeling afronden',
+                    icon: CheckCircleIcon,
+                  },
+                ];
+
+                const item = items[stap - 1];
+                const isActive = activeStapIndex === stap;
+                const isCompleted = activeStapIndex > stap;
+
+                return (
+                  <li
+                    key={stap}
+                    className={`relative flex items-center gap-2 px-3 py-2 rounded-md ${
+                      isActive
+                        ? 'bg-[#FEEFC7] text-[#28424F] font-semibold'
+                        : isCompleted
+                        ? 'text-[#28424F]'
+                        : 'text-gray-400'
+                    }`}
+                  >
+                    {isActive && (
+                      <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#F2B423] rounded-l-md" />
+                    )}
+                    <item.icon className="w-4 h-4" />
+                    {item.label}
+                    {isCompleted && (
+                      <span className="ml-auto text-green-500 text-lg">✓</span>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         )}

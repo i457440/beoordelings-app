@@ -42,7 +42,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/inschrijvingen/{inschrijving}/bekijken', [InschrijvingController::class, 'showStap1'])
     ->name('inschrijving.bekijken');
-});
+    });
+
+    Route::get('/inschrijvingen/{inschrijving}/beoordelingscriteria', [InschrijvingController::class, 'showStap2'])
+    ->name('inschrijving.beoordelingscriteria');
+
+    Route::get('/inschrijvingen/{inschrijving}/beoordelen', [InschrijvingController::class, 'showStap3'])
+    ->name('inschrijving.beoordelen');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
