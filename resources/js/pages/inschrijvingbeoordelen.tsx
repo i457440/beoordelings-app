@@ -1,7 +1,7 @@
 import AppLayout from '@/layouts/app-layout';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const stappen = [
   { nummer: 1, label: 'Bekijk inschrijving' },
@@ -39,11 +39,10 @@ export default function InschrijvingBeoordelen({ inschrijving }) {
   ];
 
   const [antwoorden, setAntwoorden] = useState(
-    vragen.map(() => ({
-      score: null,
-      motivering: '',
-    }))
+    vragen.map(() => ({ score: null, motivering: '' }))
   );
+
+  const isFormValid = antwoorden.every((a) => a.score !== null && a.motivering.trim() !== '');
 
   const handleScoreChange = (vraagIndex: number, score: number) => {
     const nieuw = [...antwoorden];
@@ -56,6 +55,15 @@ export default function InschrijvingBeoordelen({ inschrijving }) {
     nieuw[vraagIndex].motivering = tekst;
     setAntwoorden(nieuw);
   };
+
+  const handleSubmit = () => {
+  const antwoordenQuery = encodeURIComponent(JSON.stringify(antwoorden));
+  router.visit(`/inschrijvingen/${inschrijving.id}/afronden?antwoorden=${antwoordenQuery}`, {
+    method: 'get',
+    preserveState: true,
+    preserveScroll: true,
+  });
+};
 
   return (
     <AppLayout breadcrumbs={[{ title: 'Inschrijving beoordelen', href: '#' }]}>
@@ -179,12 +187,15 @@ export default function InschrijvingBeoordelen({ inschrijving }) {
           >
             Vorige stap
           </Link>
-          <Link
-            href={`/inschrijvingen/${inschrijving.id}/afronden`}
-            className="px-5 py-2 bg-[#F2B423] text-white rounded hover:bg-[#d9a721] text-sm"
+          <button
+            disabled={!isFormValid}
+            onClick={handleSubmit}
+            className={`px-5 py-2 text-sm rounded text-white ${
+              isFormValid ? 'bg-[#F2B423] hover:bg-[#d9a721]' : 'bg-gray-300 cursor-not-allowed'
+            }`}
           >
             Volgende
-          </Link>
+          </button>
         </div>
       </div>
     </AppLayout>

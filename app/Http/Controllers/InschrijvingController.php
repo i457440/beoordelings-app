@@ -56,9 +56,21 @@ class InschrijvingController extends Controller
     }
 
     public function showStap3(Inschrijving $inschrijving)
-{
-    return Inertia::render('inschrijvingbeoordelen', [
-        'inschrijving' => $inschrijving,
-    ]);
-}
+    {
+        return Inertia::render('inschrijvingbeoordelen', [
+            'inschrijving' => $inschrijving,
+        ]);
+    }
+
+    public function showStap4(Request $request, Inschrijving $inschrijving)
+    {
+        $antwoordenJson = $request->get('antwoorden', '[]');
+        $antwoorden = json_decode($antwoordenJson, true);
+
+        return Inertia::render('inschrijvingafronden', [
+            'inschrijving' => $inschrijving,
+            'antwoorden' => $antwoorden,
+        ]);
+    }
+
 }

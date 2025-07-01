@@ -53,7 +53,7 @@ export function AppSidebar() {
   const activeStapIndex = (() => {
   if (url.includes('/beoordelingscriteria')) return 2;
   if (url.includes('/beoordelen')) return 3;
-  if (url.includes('/beoordelingafronden')) return 4;
+  if (url.includes('/afronden')) return 4;
   if (url.includes('/inschrijvingen/') && url.includes('/bekijken')) return 1;
   return null;
 })();
@@ -111,7 +111,7 @@ export function AppSidebar() {
         {isBeoordelingRoute && (
           <div className="mt-10 border-t border-gray-200 pt-6 px-2">
             <h3 className="text-sm font-bold text-[#28424F] mb-2 px-3">Beoordelingstappen</h3>
-            <ul className="text-sm space-y-1">
+            <ul className="text-xs space-y-1">
               {[1, 2, 3, 4].map((stap) => {
                 const items = [
                   {
@@ -123,7 +123,7 @@ export function AppSidebar() {
                     icon: ClipboardIcon,
                   },
                   {
-                    label: 'Stap 3 - Inschrijving beoordelen',
+                    label: 'Stap 3 - Beoordelen',
                     icon: PencilSquareIcon,
                   },
                   {

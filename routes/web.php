@@ -50,5 +50,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/inschrijvingen/{inschrijving}/beoordelen', [InschrijvingController::class, 'showStap3'])
     ->name('inschrijving.beoordelen');
 
+    Route::get('/inschrijvingen/{inschrijving}/afronden', [InschrijvingController::class, 'showStap4'])
+    ->name('inschrijving.afronden');
+
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
