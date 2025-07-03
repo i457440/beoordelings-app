@@ -118,18 +118,30 @@ export default function InschrijvingAfronden() {
         </div>
 
         <div className="mt-6 flex justify-between">
-          <Link
-            href={route('inschrijving.beoordelen', { inschrijving: inschrijving.id })}
-            className="px-5 py-2 border border-[#F2B423] text-[#F2B423] rounded hover:bg-[#fff8e6] text-sm"
-          >
-            Vorige stap
-          </Link>
-          <div className="flex gap-2">
-            <button className="px-5 py-2 bg-[#F2B423] text-white rounded hover:bg-[#d9a721] text-sm">
-              Afronden
-            </button>
-          </div>
+            <Link
+                href={route('inschrijving.beoordelen', { inschrijving: inschrijving.id })}
+                className="px-5 py-2 border border-[#F2B423] text-[#F2B423] rounded hover:bg-[#fff8e6] text-sm"
+            >
+                Vorige stap
+            </Link>
+
+            <div className="flex gap-2">
+                <button
+                type="button"
+                className="px-5 py-2 border border-[#F2B423] text-[#F2B423] rounded hover:bg-[#fff8e6] text-sm"
+                onClick={() => console.log('Opslaan geklikt')} // Vervang met je opslaafunctie
+                >
+                Opslaan
+                </button>
+
+                <button
+                className="px-5 py-2 bg-[#F2B423] text-white rounded hover:bg-[#d9a721] text-sm"
+                >
+                Afronden
+                </button>
+            </div>
         </div>
+
       </div>
     </AppLayout>
   );

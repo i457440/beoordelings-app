@@ -181,21 +181,31 @@ export default function InschrijvingBeoordelen({ inschrijving }) {
         </div>
 
         <div className="mt-6 flex justify-between">
-          <Link
-            href={route('inschrijving.beoordelingscriteria', { inschrijving: inschrijving.id })}
-            className="px-5 py-2 border border-[#F2B423] text-[#F2B423] rounded hover:bg-[#fff8e6] text-sm"
-          >
-            Vorige stap
-          </Link>
-          <button
-            disabled={!isFormValid}
-            onClick={handleSubmit}
-            className={`px-5 py-2 text-sm rounded text-white ${
-              isFormValid ? 'bg-[#F2B423] hover:bg-[#d9a721]' : 'bg-gray-300 cursor-not-allowed'
-            }`}
-          >
-            Volgende
-          </button>
+            <Link
+                href={route('inschrijving.beoordelingscriteria', { inschrijving: inschrijving.id })}
+                className="px-5 py-2 border border-[#F2B423] text-[#F2B423] rounded hover:bg-[#fff8e6] text-sm"
+            >
+                Vorige stap
+            </Link>
+
+            <div className="flex gap-2">
+                <button type="button"
+                className="px-5 py-2 border border-[#F2B423] text-[#F2B423] rounded hover:bg-[#fff8e6] text-sm"
+                onClick={() => console.log('Opslaan geklikt')} // Vervang dit met jouw eigen opslaafunctie
+                >
+                Opslaan
+                </button>
+
+                <button
+                disabled={!isFormValid}
+                onClick={handleSubmit}
+                className={`px-5 py-2 text-sm rounded text-white ${
+                    isFormValid ? 'bg-[#F2B423] hover:bg-[#d9a721]' : 'bg-gray-300 cursor-not-allowed'
+                }`}
+                >
+                Volgende
+                </button>
+            </div>
         </div>
       </div>
     </AppLayout>

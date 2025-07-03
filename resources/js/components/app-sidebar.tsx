@@ -16,6 +16,10 @@ import {
   ClipboardIcon,
   PencilSquareIcon,
   CheckCircleIcon,
+  DocumentMagnifyingGlassIcon,
+  PencilIcon,
+  DocumentCheckIcon,
+  StarIcon,
 } from '@heroicons/react/24/outline';
 
 const mainNavItems: NavItem[] = [
@@ -32,7 +36,7 @@ const mainNavItems: NavItem[] = [
   {
     title: 'Beoordelingen',
     href: '/beoordelingen',
-    icon: ClipboardDocumentListIcon,
+    icon: StarIcon,
   },
   {
     title: 'Hulp en uitleg',
@@ -80,10 +84,12 @@ export function AppSidebar() {
             item.title === 'Beoordelingen' ? (
               <div
                 key={item.href}
-                className="flex items-center gap-3 px-4 py-2 rounded-md text-base font-medium opacity-30 cursor-not-allowed"
+                className="relative flex items-center w-full py-2 transition-colors pl-5 pr-4 opacity-30 cursor-not-allowed"
               >
-                <item.icon className="w-5 h-5" />
-                {item.title}
+                <div className="flex items-center gap-3 w-full z-10">
+                  <item.icon className="w-5 h-5" />
+                  {item.title}
+                </div>
               </div>
             ) : (
               <Link
@@ -116,19 +122,19 @@ export function AppSidebar() {
                 const items = [
                   {
                     label: 'Stap 1 - Bekijk inschrijving',
-                    icon: DocumentIcon,
+                    icon: DocumentMagnifyingGlassIcon,
                   },
                   {
                     label: 'Stap 2 - Beoordelingscriteria',
-                    icon: ClipboardIcon,
+                    icon: ClipboardDocumentListIcon,
                   },
                   {
                     label: 'Stap 3 - Beoordelen',
-                    icon: PencilSquareIcon,
+                    icon: PencilIcon,
                   },
                   {
                     label: 'Stap 4 - Beoordeling afronden',
-                    icon: CheckCircleIcon,
+                    icon: DocumentCheckIcon,
                   },
                 ];
 

@@ -107,19 +107,29 @@ export default function Beoordelingscriteria({ inschrijving }) {
         </div>
 
         {/* Navigatieknoppen */}
-        <div className="mt-6 flex justify-between">
-          <Link
-            href={route('inschrijving.bekijken', { inschrijving: inschrijving.id })}
-            className="px-5 py-2 border border-[#F2B423] text-[#F2B423] rounded hover:bg-[#fff8e6] text-sm"
-          >
-            Vorige stap
-          </Link>
-          <Link
-            href={`/inschrijvingen/${inschrijving.id}/beoordelen`}
-            className="px-5 py-2 bg-[#F2B423] text-white rounded hover:bg-[#d9a721] text-sm"
-          >
-            Volgende
-          </Link>
+       <div className="mt-6 flex justify-between">
+            <Link
+                href={route('inschrijving.bekijken', { inschrijving: inschrijving.id })}
+                className="px-5 py-2 border border-[#F2B423] text-[#F2B423] rounded hover:bg-[#fff8e6] text-sm"
+            >
+                Vorige stap
+            </Link>
+
+            <div className="flex gap-2">
+                <button
+                type="button"
+                className="px-5 py-2 border border-[#F2B423] text-[#F2B423] rounded hover:bg-[#fff8e6] text-sm"
+                >
+                Opslaan
+                </button>
+
+                <Link
+                href={`/inschrijvingen/${inschrijving.id}/beoordelen`}
+                className="px-5 py-2 bg-[#F2B423] text-white rounded hover:bg-[#d9a721] text-sm"
+                >
+                Volgende
+                </Link>
+            </div>
         </div>
       </div>
     </AppLayout>
